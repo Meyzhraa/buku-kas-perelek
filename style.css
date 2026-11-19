@@ -11,7 +11,7 @@
   --border: #e5e7eb;
   --red: #dc2626;
   --red-light: #fee2e2;
-  --shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow: 0 2px 8px rgba(65, 42, 42, 0.06);
   --radius: 12px;
 }
 
@@ -301,12 +301,27 @@ input[type="text"],
 input[type="number"],
 input[type="date"],
 input[type="month"] {
+  display: block;
   width: 100%;
+  max-width: 100%;
+  min-width: 0; /* Mencegah input date/month melebar keluar batas di HP */
+  box-sizing: border-box;
   padding: 11px 12px;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
   font-size: 0.95rem;
+  background-color: var(--white);
+  color: var(--text-main);
+  -webkit-appearance: none;
+  appearance: none;
   transition: border-color 0.2s;
+}
+
+/* Memastikan area teks tanggal di dalam input mobile tidak meluber */
+input[type="date"]::-webkit-date-and-time-value,
+input[type="month"]::-webkit-date-and-time-value {
+  text-align: left;
+  margin: 0;
 }
 
 input:focus {
