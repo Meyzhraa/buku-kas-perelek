@@ -1,0 +1,18 @@
+{
+  "name": "Aplikasi Perelek – Buku Kas Ronda Malam Minggu",
+  "short_name": "Kas Perelek",
+  "description": "Buku kas digital untuk pencatatan pemasukan dan pengeluaran uang perelek ronda malam Minggu.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4f7f5",
+  "theme_color": "#15803d",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
