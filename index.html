@@ -32,6 +32,7 @@
       <button class="nav-btn active" data-target="dashboard">📊 Dashboard</button>
       <button class="nav-btn" data-target="tambah">➕ Catat Kas</button>
       <button class="nav-btn" data-target="riwayat">📜 Riwayat</button>
+      <button class="nav-btn" data-target="rekap-excel">📋 Rekap Tabel</button>
       <button class="nav-btn" data-target="laporan">⚙️ Laporan & Saldo</button>
     </div>
   </nav>
@@ -161,6 +162,22 @@
       <!-- Wadah Tabel (Desktop) & Kartu (Mobile) -->
       <div id="riwayat-container" class="mt-20">
         <!-- Diisi otomatis oleh JS -->
+      </div>
+    </section>
+
+<!-- 3B. TAB REKAP TABEL MODEL EXCEL (SIAP SCREENSHOT) -->
+    <section id="rekap-excel" class="tab-section">
+      <div class="section-header">
+        <h2>Rekap Buku Kas (Siap Screenshot)</h2>
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <input type="month" id="excel-filter-bulan" style="padding: 7px 10px; font-size: 0.85rem;">
+          <button type="button" id="btn-excel-reset" class="btn btn-secondary btn-sm">Semua</button>
+        </div>
+      </div>
+
+      <!-- Area Kertas Rekap Model Excel -->
+      <div id="excel-sheet-area" class="excel-sheet-container">
+        <!-- Diisi otomatis oleh app.js -->
       </div>
     </section>
 

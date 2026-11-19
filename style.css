@@ -560,3 +560,73 @@ tfoot tr.total-row td {
   font-weight: 500;
   z-index: 100;
 }
+
+/* ================= TAMPILAN REKAP MODEL EXCEL ================= */
+.excel-sheet-container {
+  background: #ffffff;
+  border: 1px solid #94a3b8;
+  border-radius: 6px;
+  padding: 16px;
+  overflow-x: auto;
+  box-shadow: var(--shadow);
+}
+
+.excel-sheet-header {
+  text-align: center;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #15803d;
+}
+
+.excel-sheet-header h3 {
+  font-size: 1.05rem;
+  color: #14532d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.excel-sheet-header p {
+  font-size: 0.82rem;
+  color: #475569;
+  margin-top: 2px;
+}
+
+.excel-grid-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+  color: #0f172a;
+}
+
+.excel-grid-table th,
+.excel-grid-table td {
+  border: 1px solid #cbd5e1;
+  padding: 8px 10px;
+}
+
+.excel-grid-table thead th {
+  background-color: #15803d;
+  color: #ffffff;
+  font-weight: 700;
+  text-align: center;
+}
+
+.excel-grid-table tbody tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+.excel-grid-table tr.row-saldo-awal {
+  background-color: #fefce8;
+  font-weight: 600;
+}
+
+.excel-grid-table tfoot tr.row-total-excel {
+  background-color: #dcfce7;
+  font-weight: 700;
+  color: #14532d;
+  border-top: 2px solid #15803d;
+}
+
+.excel-grid-table td.center { text-align: center; }
+.excel-grid-table td.num { text-align: right; white-space: nowrap; }

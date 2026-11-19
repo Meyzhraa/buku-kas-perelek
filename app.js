@@ -243,6 +243,7 @@ function renderAll() {
   const computed = getComputedTransactions();
   renderDashboard(computed);
   renderRiwayat(computed);
+  renderRekapExcel(computed);
   document.getElementById('input-saldo-awal').value = saldoAwal;
 }
 
@@ -303,6 +304,13 @@ function initFilters() {
     document.getElementById('filter-bulan').value = '';
     document.getElementById('filter-tanggal').value = '';
     renderRiwayat(getComputedTransactions());
+  });
+  document.getElementById('excel-filter-bulan').addEventListener('change', () => {
+    renderRekapExcel(getComputedTransactions());
+  });
+  document.getElementById('btn-excel-reset').addEventListener('click', () => {
+    document.getElementById('excel-filter-bulan').value = '';
+    renderRekapExcel(getComputedTransactions());
   });
 }
 
@@ -383,6 +391,78 @@ function renderRiwayat(computed) {
         </tfoot>
       </table>
     </div>
+  `;
+}
+
+function renderRekapExcel(computed) {
+  const container = document.getElementById('excel-sheet-area');
+  if (!container) return;
+
+  const filterBulan = document.getElementById('excel-filter-bulan').value;
+  const dataTampil = filterBulan
+    ? computed.filter(tx => tx.tanggal.startsWith(filterBulan))
+    : computed;
+
+  const labelPeriode = filterBulan ? `Periode Bulan: ${filterBulan}` : 'Periode: Semua Catatan Kas';
+  const totalMasuk = dataTampil.reduce((sum, tx) => sum + tx.pemasukan, 0);
+  const totalKeluar = dataTampil.reduce((sum, tx) => sum + tx.pengeluaran, 0);
+  const saldoAkhir = dataTampil.length > 0
+    ? dataTampil[dataTampil.length - 1].saldoBerjalan
+    : saldoAwal;
+
+  const rowsHTML = dataTampil.map((tx, idx) => `
+    <tr>
+      <td class="center">${idx + 1}</td>
+      <td class="center" style="white-space: nowrap;">${formatTanggalIndo(tx.tanggal)}</td>
+      <td>${escapeHTML(tx.nama)}</td>
+      <td>${escapeHTML(tx.keterangan)}</td>
+      <td class="num text-green">${tx.pemasukan > 0 ? formatRupiah(tx.pemasukan) : '-'}</td>
+      <td class="num text-red">${tx.pengeluaran > 0 ? formatRupiah(tx.pengeluaran) : '-'}</td>
+      <td class="num"><strong>${formatRupiah(tx.saldoBerjalan)}</strong></td>
+    </tr>
+  `).join('');
+
+  container.innerHTML = `
+    <div class="excel-sheet-header">
+      <h3>BUKU KAS PERELEK RONDA MALAM MINGGU</h3>
+      <p>${labelPeriode} • Dicetak: ${formatTanggalIndo(new Date().toISOString().split('T')[0])}</p>
+    </div>
+    <table class="excel-grid-table">
+      <thead>
+        <tr>
+          <th style="width: 45px;">No</th>
+          <th>Tanggal</th>
+          <th>Nama Warga</th>
+          <th>Keterangan</th>
+          <th>Pemasukan</th>
+          <th>Pengeluaran</th>
+          <th>Saldo</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${!filterBulan ? `
+        <tr class="row-saldo-awal">
+          <td class="center">-</td>
+          <td class="center">-</td>
+          <td colspan="2">SALDO AWAL KAS</td>
+          <td class="num">-</td>
+          <td class="num">-</td>
+          <td class="num">${formatRupiah(saldoAwal)}</td>
+        </tr>` : ''}
+        ${dataTampil.length > 0 ? rowsHTML : `
+        <tr>
+          <td colspan="7" class="center" style="padding: 20px; color: #64748b;">Belum ada catatan transaksi pada periode ini.</td>
+        </tr>`}
+      </tbody>
+      <tfoot>
+        <tr class="row-total-excel">
+          <td colspan="4" class="center">TOTAL KESELURUHAN</td>
+          <td class="num text-green">${formatRupiah(totalMasuk)}</td>
+          <td class="num text-red">${formatRupiah(totalKeluar)}</td>
+          <td class="num">${formatRupiah(saldoAkhir)}</td>
+        </tr>
+      </tfoot>
+    </table>
   `;
 }
 
