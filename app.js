@@ -147,9 +147,6 @@ function initForm() {
     if (pemasukan < 0 || pengeluaran < 0) {
       return showFormError('Nominal pemasukan atau pengeluaran tidak boleh negatif.');
     }
-    if (pemasukan === 0 && pengeluaran === 0) {
-      return showFormError('Pemasukan dan pengeluaran tidak boleh keduanya kosong atau bernilai nol.');
-    }
 
     if (id) {
       // Mode Edit
